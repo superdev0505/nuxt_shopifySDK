@@ -1,0 +1,25 @@
+// Breakpoints
+$mobileM: 375px;
+$mobileL: 425px;
+$tablet: 768px;
+$laptop: 1024px;
+$desktop: 1440px;
+$navDesktop: 1050px;//$tablet;
+$navFooterDesktop: $laptop;
+$navHeight: 65px;
+$navHeightDesktop: 75px; //110px -> with Nav__Account
+$maxWidth: 1160px;
+$spacing: 20px;
+$spacingDesktop: 40px;
+
+// Colors
+$blue: #364491;
+$blue-light:#4557BA;
+$blue-lighter: #5C6FDA;
+$blue-lightest: #7185F5;
+
+$gray-darkest: #050604;
+$gray: #333333;
+$gray-light: #666666;
+$gray-lighter: #888888;
+$gray-lightest: #f6f6f6;

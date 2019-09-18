@@ -1,0 +1,152 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+*:focus {
+  outline: dotted 1px $blue-lighter;
+}
+html,body{
+  padding:0;
+  margin:0;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size:1.6rem;
+  font-family:"Josefin Sans", sans-serif;
+}
+.Max__Width {
+  max-width: $maxWidth;
+  margin: 0 auto;
+  &.Padded {
+    @include bp($maxWidth) {
+      max-width: ($maxWidth + $spacingDesktop * 2);
+    }
+  }
+}
+.Padded {
+  @include poly-fluid-sizing(
+    "padding-left",
+    (
+      $mobileL: $spacing,
+      $laptop: $spacingDesktop
+    )
+  );
+  @include poly-fluid-sizing(
+    "padding-right",
+    (
+      $mobileL: $spacing,
+      $laptop: $spacingDesktop
+    )
+  );
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+ul{
+  list-style-type:none;
+  padding:0;
+  margin:0;
+}
+
+
+h1,h2,h3,h4,h5,h6,h7 {
+  font-weight: 600;
+  line-height: 1em;
+  letter-spacing: 1px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+h1,.h1 {
+  @include poly-fluid-sizing('font-size',($mobileM:30px,$laptop:60px));
+}
+h2,.h2 {
+  @include poly-fluid-sizing('font-size',($mobileM:20px,$laptop:24px));
+}
+h3,.h3 {}
+h4,.h4 {}
+p {
+  font-weight: 300;
+  color: $gray-light;
+  @include poly-fluid-sizing(
+    "font-size",
+    (
+      $mobileL: 14px,
+      $desktop: 18px
+    )
+  );
+  line-height: 1.5em;
+  &:first-child {
+    margin-top: 0;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+section{
+  padding-top:60px;
+  padding-bottom:60px;
+  text-align: center;
+}
+.container {
+  margin: 0 auto;
+  position: relative;
+  width: 1200px;
+  padding: 0;
+  max-width: 100%;
+}
+.info-boxes {
+  width: 1180px;
+  max-width: 100%;
+}
+
+@media screen and (max-width: 1199px) {
+  .container {
+    width: 992px;
+  }
+  .info-boxes {
+    width: 940px;
+  }
+}
+@media screen and (max-width: 991px) {
+  .container {
+    width: $tablet;
+  }
+  .info-boxes {
+    width: 748px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    width: 420px;
+  }
+  .info-boxes {
+    width: 420px;
+  }
+}
+
+@media screen and (max-width: 419px) {
+  .container {
+    width: 300px;
+  }
+  .info-boxes {
+    width: 100%;
+  }
+}
+
+.flickity-slider {
+  display: flex;
+}

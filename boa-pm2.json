@@ -1,0 +1,8 @@
+{
+    "apps": [{
+        "name": "boa",
+        "cwd": "./",
+        "script": "npm",
+        "args": "start"
+    }]
+}

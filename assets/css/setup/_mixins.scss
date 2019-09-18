@@ -1,0 +1,144 @@
+//mixins:
+@import "~poly-fluid-sizing/poly-fluid-sizing";
+
+// eg. @include poly-fluid-sizing('height', ($mobileL:666px, $tablet:613px));
+
+// eg. @include grid-spacing($spc:20px,$vertical:$laptop);
+@mixin grid-spacing($spc: 10px, $vertical: $tablet) {
+  $spc-half: ($spc/2);
+
+  margin-left: -$spc-half;
+  margin-right: -$spc-half;
+
+  // on vertical breakpoint make sure vertical spacing is also added
+  // margin-top: 0;
+  // margin-bottom: 0;
+  @include bp($vertical, true) {
+    margin-top: -$spc-half;
+    margin-bottom: -$spc-half;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  & [class^="col-"] {
+    padding-right: $spc-half;
+    padding-left: $spc-half;
+    // on vertical breakpoint make sure vertical spacing is also added
+    // padding-top: 0;
+    // padding-bottom: 0;
+    @include bp($vertical, true) {
+      padding-top: -$spc-half;
+      padding-bottom: -$spc-half;
+      &:first-child {
+        padding-top: 0;
+      }
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+// eg. @include grid-spacing-fluid(($mobileL:20px, $desktop:40px),$vertical:$laptop);
+@mixin grid-spacing-fluid(
+  $map: (
+    $mobileL: 10px,
+    $laptop: 30px
+  ),
+  $vertical: $tablet
+) {
+  //$vertical specifies breakpoint when to also apply vertical spacing
+  //by default vertical spacing is set to 0
+
+  // Get the number of provided breakpoints
+  $length: length(map-keys($map));
+
+  // Error if the number of breakpoints is < 2
+  @if ($length < 2) {
+    @error "grid-spacing-fluid() $map requires at least 2 breakpoints";
+  }
+
+  // Sort the map by viewport width (key)
+  $map: map-sort($map);
+  $map-positive: ();
+  $map-negative: ();
+
+  // divide all spacing by half
+  @each $key, $value in $map {
+    $map-positive: map-merge(
+      $map-positive,
+      (
+        $key: (
+          $value/2
+        )
+      )
+    );
+    $map-negative: map-merge(
+      $map-negative,
+      (
+        $key:
+          -
+          (
+            $value/2
+          )
+      )
+    );
+  }
+  // TEST:
+  // inspect: inspect($map);
+  // inspect-pos: inspect($map-positive);
+  // inspect-neg: inspect($map-negative);
+
+  @include poly-fluid-sizing("margin-left", $map-negative);
+  @include poly-fluid-sizing("margin-right", $map-negative);
+
+  // on vertical breakpoint make sure vertical spacing is also added
+  // margin-top: 0;
+  // margin-bottom: 0;
+  @include bp($vertical, true) {
+    @include poly-fluid-sizing("margin-top", $map-negative);
+    @include poly-fluid-sizing("margin-bottom", $map-negative);
+
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  & [class^="col-"] {
+    @include poly-fluid-sizing("padding-left", $map-positive);
+    @include poly-fluid-sizing("padding-right", $map-positive);
+
+    // on vertical breakpoint make sure vertical spacing is also added
+    // padding-top: 0;
+    // padding-bottom: 0;
+    @include bp($vertical, true) {
+      @include poly-fluid-sizing("padding-top", $map-positive);
+      @include poly-fluid-sizing("padding-bottom", $map-positive);
+      &:first-child {
+        padding-top: 0;
+      }
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+// eg. @include bp($mobileM), or @include bp($mobileM,true);
+@mixin bp($px, $max: false) {
+  $minMax: "min-width";
+  @if $max==true {
+    $minMax: "max-width";
+    $px: ($px - 1);
+  }
+  @media (#{$minMax}: $px) {
+    @content;
+  }
+}

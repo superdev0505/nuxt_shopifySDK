@@ -1,0 +1,17 @@
+$pageTransitionOffset:30px;
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.8s $easeOutQuint;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+.page-enter {
+  transform: translateY(-$pageTransitionOffset);
+}
+.page-leave-to {
+  transform: translateY($pageTransitionOffset);
+}
